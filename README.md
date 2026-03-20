@@ -1,17 +1,54 @@
-#  E-commerce System - TS
+# .
 
-Projeto desenvolvido para a disciplina de [Nome da Matéria]. O sistema simula a lógica de um e-commerce, permitindo a criação de produtos, categorias e gerenciamento de carrinho de compras.
+This template should help get you started developing with Vue 3 in Vite.
 
-## Tecnologias Utilizadas
-* **TypeScript** (Lógica e Tipagem)
-* **Node.js** (Ambiente de execução)
+## Recommended IDE Setup
 
-##  Estrutura do Projeto
-- `/src/model`: Contém as classes `Product`, `Category` e `Cart`.
-- `index.ts`: Arquivo principal que demonstra o funcionamento do sistema.
+[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-##  Como rodar o projeto
-1. Clone o repositório.
-2. Instale as dependências: `npm install`
-3. Compile o código: `npx tsc`
-4. Execute: `npm start`
+## Recommended Browser Setup
+
+- Chromium-based browsers (Chrome, Edge, Brave, etc.):
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
+- Firefox:
+  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+
+## Type Support for `.vue` Imports in TS
+
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vite.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
