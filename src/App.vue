@@ -1,58 +1,60 @@
-<template>
-  <div class="app">
-    <!-- Header aparece em todas as páginas -->
-    <Header />
+<script lang="ts">
+import { Product } from './model/product.model';
+import { Cart } from './model/cart.model';
+import ProductCard from './components/card/ProductCard.vue';
+import CartItem from './components/card/CartItem.vue';
 
-    <!-- Aqui é onde cada página vai aparecer -->
-    <main class="main-content">
-      <RouterView />
-    </main>
+export default {
+  components: { ProductCard, CartItem },
 
-    <!-- Footer aparece em todas as páginas -->
-    <footer class="footer">
-      <p>© 2024 MyShop. Feito com ❤️</p>
-    </footer>
-  </div>
-</template>
+  data() {
+    return {
+      cart: new Cart(),
+      products: [
+        new Product(1, 'Guitarra',  '22 trastes', 200, 0.05, []),
+        new Product(2, 'Guitarra2', '22 trastes', 200, 0.05, []),
+      ],
+    };
+  },
 
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
-import Header from './components/Header.vue'
+  methods: {
+    addItem(product: Product) {
+      this.cart.addItem(product); // ← deixa a classe Cart fazer o trabalho
+    },
+    removeItem(product: Product) {
+      this.cart.removeItem(product);
+    },
+    decrementItem(product: Product) {
+      this.cart.decrementItem(product);
+    },
+  },
+};
 </script>
 
-<style>
-/* CSS global — vale para o projeto inteiro */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<template>
+  <main>
+    <!-- Lista de produtos -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div v-for="product in products" :key="product.id">
+        <ProductCard :product="product" @on-add-item="addItem" />
+      </div>
+    </section>
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-}
+    <!-- Carrinho -->
+    <h2 class="mt-8">Carrinho</h2>
+    
+    <div v-if="cart.list.length === 0" class="border border-slate-500 bg-slate-400 rounded-sm h-64 w-1/2 flex items-center justify-center">
+      <p>Carrinho vazio, vamos as compras!</p>
+    </div>
 
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+    <div v-for="item in cart.list" :key="item.product.id">
+      <CartItem
+        :item="item"
+        @on-remove-item="removeItem"
+        @on-decrement-item="decrementItem"
+      />
+    </div>
 
-.main-content {
-  flex: 1;
-  padding: 32px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.footer {
-  background-color: #1a1a2e;
-  color: white;
-  text-align: center;
-  padding: 16px;
-  font-size: 0.9rem;
-}
-</style>
+    <p><strong>Total: {{ cart.getTotalPrice() }}</strong></p>
+  </main>
+</template>
