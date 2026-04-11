@@ -3,26 +3,41 @@ import { Product } from '@/model/product.model';
 import { Cart } from '@/model/cart.model';
 import ProductCard from '@/components/card/ProductCard.vue';
 import CartItem from '@/components/card/CartItem.vue';
+import { ProductRest } from '@/services/config/rest/product.rest';
 
 export default {
+  name: 'HomePage',
   components: { ProductCard, CartItem },
-
+  mounted(){
+    this.getProducts()
+  },
   data() {
     return {
       cart: new Cart(),
-      products: [
-        new Product(1, 'Guitarra',  '22 trastes', 200, 0.05, []),
-        new Product(2, 'Guitarra2', '22 trastes', 200, 0.05, []),
-      ],
+      products: [],
     };
   },
 
+  computed:{
+    rest(): ProductRest {
+      return new ProductRest()
+    },
+  },
   methods: {
     addItem(product: Product) {
       this.cart.addItem(product); // ← deixa a classe Cart fazer o trabalho
     },
     removeItem(product: Product) {
       this.cart.removeItem(product);
+    },
+    getproducts(){
+      const params ={page:1, limit:10}
+        this.rest.getAll(params).then((res)=>{
+        this.products = res.data.data.map((product: Product)=>{
+          return new Product(product.id, product.name, product.description,product.price,0, product.images)
+        })
+        console.log(this.products, 'products')
+      })
     },
     decrementItem(product: Product) {
       this.cart.decrementItem(product);

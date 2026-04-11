@@ -1,3 +1,4 @@
+import { Image } from './img.model';
 export class Product{
   constructor(
     public id: number,
@@ -5,7 +6,7 @@ export class Product{
     public description: string,
     public price: number,
     public discount: number,
-    public images: string[]=[],
+    public images: Image []=[],
   ){}
 
   getPrice(){

@@ -1,16 +1,16 @@
 <template>
   <Card>
     <template #header>
-      <img :src="'https://picsum.photos/200'" class="w-full object-cover">
+      <img :src="mainImage" class="w-full object-cover">
 
     </template>
-    <template #title>{{ product.title }}</template>
+    <template #title>{{ product.name }}</template>
     <template #content>
       <p>{{ product.description }}</p>
       <p>{{ product.getPrice() }}</p>
     </template>
     <template #footer>
-      <Button @click="$emit('onAddItem', product)">Adicionar</Button>
+      <PrimeButton @click="$emit('onAddItem', product)">Adicionar</PrimeButton>
     </template>
   </Card>
 </template>
@@ -21,7 +21,7 @@ import Card from 'primevue/card';
 import Button from 'primevue/button';
 
 export default {
-  components: { Card, Button},
+  components: { Card, PrimeButton: Button},
   props: {
     product: {
       type: Object as () => Product,
@@ -29,5 +29,10 @@ export default {
     },
   },
   emits: ['onAddItem'],
+  computed:{
+    mainImage(): string{
+    return this.product.images.find((i)=> i.isMain)?.url ?? 'https://picsum.photos/200'
+    }
+  }
 };
 </script>
