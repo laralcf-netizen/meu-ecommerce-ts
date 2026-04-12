@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>Dashboard Admin</h1>
-  </div>
+  <main class = "h-screen bg-amber-500">
+    <h1>Products</h1>
+  </main>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import {defineComponent} from 'vue'
+export default defineComponent({})
 </script>

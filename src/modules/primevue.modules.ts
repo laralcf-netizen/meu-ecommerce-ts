@@ -12,5 +12,8 @@ export function setPrimeVue(app: App):void{
 })
 app.component('Button', Button)
 app.component('Card', Card)
+app.component('InputText', InputText)
+app.component('Password', Password)
+
 
 }

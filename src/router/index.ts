@@ -9,6 +9,17 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+{
+  path: '/login',
+  component: Login,
+  meta:{
+    auth: false,
+  }
+},
+{
+    path: '/register',
+    component: Register,
+},
     {
       path: '/',
       component: CustomerLayout,
@@ -26,8 +37,17 @@ const router = createRouter({
           component: ProductDetail,
           meta: {
             auth: true,
+            role: ['CUSTOMER']
           },
         },
+        {
+          path: 'history',
+          component: History,
+          meta:{
+            auth:true,
+            role: ['CUSTUMER']
+          }
+        }
       ],
     },
 
@@ -35,7 +55,7 @@ const router = createRouter({
     path: "/admin",
     meta:{
         auth: true,
-        role: ['admin']
+        role: ['ADMIN']
       },
     component: AdminLayout,
     children:[
@@ -70,4 +90,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+authenticatedGuard(router)
+authorizedGuard(router)
 export default router

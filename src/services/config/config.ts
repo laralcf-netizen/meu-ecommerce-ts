@@ -7,17 +7,17 @@ interface IHttp{
   delete(path:string, params:unknown, baseURL?: string): Promise<unknown>
 }
 export class HttpClient implements IHttp{
-  get(path:string, params:unknown, baseURL?: string): Promise<unknown>{
-    return api.get(path, { params, baseURL}).then ((res)=> res.data)
+  async get(path:string, params:unknown, baseURL?: string): Promise<unknown>{
+    return api.get(path, { params, baseURL}).then ((res)=> res.data.data)
   }
-  post(body:unknown, path: string, baseURL: string): Promise<unknown>{
-      return api.post(path, { data:body, baseURL: baseURL}).then ((res)=> res.data)
+  async post(body:unknown, path: string, baseURL: string): Promise<unknown>{
+      return api.post(path, body, { baseURL: baseURL}).then ((res)=> res.data.data)
   }
-  put(body:unknown, path: string, baseURL: string): Promise<unknown>{
-    return api.put(path, { data:body, baseURL: baseURL}).then ((res)=> res.data)
+  async put(body:unknown, path: string, baseURL: string): Promise<unknown>{
+    return api.put(path, body, { baseURL: baseURL}).then ((res)=> res.data.data)
   }
-  delete(params:unknown, path: string, baseURL: string): Promise<unknown>{
-     return api.delete(path, { params, baseURL}).then ((res)=> res.data)
+  async delete(params:unknown, path: string, baseURL: string): Promise<unknown>{
+     return api.delete(path, { params, baseURL}).then ((res)=> res.data.data)
   }
 }
 export const httpClient = new HttpClient()
